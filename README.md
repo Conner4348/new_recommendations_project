@@ -1,0 +1,2 @@
+# new_recommendations_project
+Recommendations Project for codecademy
