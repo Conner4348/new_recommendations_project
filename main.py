@@ -4,13 +4,10 @@ class Node:
 
     def __init__(self, val):
         self.val = val
-        self.links = []
-
-    def get_val(self):
-        return self.val
+        self.children = []
     
-    def get_links(self):
-        return self.links
+    def add_node(self, child):
+        self.children.append(child)
     
 
 class Tree:
@@ -27,22 +24,14 @@ class Tree:
             if path is not None:
                return path_found
         return None
-
-    # Maybe try add_node function outside of Tree class. Maybe problem with referencing self.head...
-    def add_node(self, added_to, val):
-        node_to_add = Node(val)
-        current_node = self.dfs(self.head, added_to)
-        current_node.links.append(node_to_add) # current_node has no links? Figure this out
+    
+    def extend(self, root, val):
+        find = self.dfs(root, val)
+        return find
 
 
 # TESTING
 
-tree = Tree('Do you want to watch a serious or funny movie?')
-
-print(tree.add_node('Do you want to watch a serious or funny movie?', 'Do you want to watch a true story? Enter Yes or No'))
-print(tree.add_node('Do you want to watch a serious or funny movie?', 'Do you want to watch an action movie or a comedy?'))
-
-print(tree.add_node('Do you want to watch a true story? Enter Yes or No', "I recommend Schindler's List"))
-print(tree.add_node('Do you want to watch a true story? Enter Yes or No', 'I recommend 2001: A Space Odyssey'))
-print(tree.add_node('Do you want to watch an action movie or a comedy?', 'I recommend Rush Hour'))
-print(tree.add_node('Do you want to watch an action movie or a comedy?', 'I recommend Step Brothers'))
+tree = Tree('root')
+# HUH?
+print(tree.extend('root', 'root'))
