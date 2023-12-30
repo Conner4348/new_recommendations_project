@@ -24,7 +24,7 @@ class Tree:
             return path[-1]
         for child in root.links:
             path_found = self.dfs(child, val, path)
-            if path is not None:
+            if path_found is not None:
                return path_found
         return None
 
@@ -35,14 +35,53 @@ class Tree:
         current_node.links.append(node_to_add) # current_node has no links? Figure this out
 
 
+def take_input():
+    choice = input()
+    try:
+        int(choice)
+    except:
+        print('Please select either 1 or 2')
+        take_input()
+    else:
+
+        if int(choice) != 1 and int(choice) != 2:
+            print('Please select either 1 or 2')
+            take_input()
+        
+    return choice
+
+
 # TESTING
 
-tree = Tree('Do you want to watch a serious or funny movie?')
+tree = Tree('Do you want to watch a serious or funny movie? Enter 1 or 2')
 
-print(tree.add_node('Do you want to watch a serious or funny movie?', 'Do you want to watch a true story? Enter Yes or No'))
-print(tree.add_node('Do you want to watch a serious or funny movie?', 'Do you want to watch an action movie or a comedy?'))
+tree.add_node('Do you want to watch a serious or funny movie? Enter 1 or 2', 'Do you want to watch a true story? Enter 1 (Yes) or 2 (No)')
+tree.add_node('Do you want to watch a serious or funny movie? Enter 1 or 2', 'Do you want to watch an action movie or a comedy? Enter 1 or 2')
 
-print(tree.add_node('Do you want to watch a true story? Enter Yes or No', "I recommend Schindler's List"))
-print(tree.add_node('Do you want to watch a true story? Enter Yes or No', 'I recommend 2001: A Space Odyssey'))
-print(tree.add_node('Do you want to watch an action movie or a comedy?', 'I recommend Rush Hour'))
-print(tree.add_node('Do you want to watch an action movie or a comedy?', 'I recommend Step Brothers'))
+tree.add_node('Do you want to watch a true story? Enter 1 (Yes) or 2 (No)', "I recommend Schindler's List")
+tree.add_node('Do you want to watch a true story? Enter 1 (Yes) or 2 (No)', 'I recommend 2001: A Space Odyssey')
+tree.add_node('Do you want to watch an action movie or a comedy? Enter 1 or 2', 'I recommend Rush Hour')
+tree.add_node('Do you want to watch an action movie or a comedy? Enter 1 or 2', 'I recommend Step Brothers')
+
+print('')
+print(
+"""
+ __  __            _        _____                                                   _       _   _                 
+|  \/  |          (_)      |  __ \                                                 | |     | | (_)                
+| \  / | _____   ___  ___  | |__) |___  ___ ___  _ __ ___  _ __ ___   ___ _ __   __| | __ _| |_ _  ___  _ __  ___ 
+| |\/| |/ _ \ \ / / |/ _ \ |  _  // _ \/ __/ _ \| '_ ` _ \| '_ ` _ \ / _ \ '_ \ / _` |/ _` | __| |/ _ \| '_ \/ __|
+| |  | | (_) \ V /| |  __/ | | \ \  __/ (_| (_) | | | | | | | | | | |  __/ | | | (_| | (_| | |_| | (_) | | | \__ \ 
+|_|  |_|\___/ \_/ |_|\___| |_|  \_\___|\___\___/|_| |_| |_|_| |_| |_|\___|_| |_|\__,_|\__,_|\__|_|\___/|_| |_|___/
+                                                                                                                   
+                                                                                                                
+"""
+)
+
+
+current = tree.head
+while len(current.links) > 0:
+    print(current.get_val())
+    dec = take_input()
+    print(int(dec))
+    current = current.links[int(dec)-1]
+print(current.get_val())
