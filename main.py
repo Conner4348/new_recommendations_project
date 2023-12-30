@@ -4,13 +4,10 @@ class Node:
 
     def __init__(self, val):
         self.val = val
-        self.links = []
-
-    def get_val(self):
-        return self.val
+        self.children = []
     
-    def get_links(self):
-        return self.links
+    def add_node(self, child):
+        self.children.append(child)
     
 
 class Tree:
@@ -27,12 +24,10 @@ class Tree:
             if path_found is not None:
                return path_found
         return None
-
-    # Maybe try add_node function outside of Tree class. Maybe problem with referencing self.head...
-    def add_node(self, added_to, val):
-        node_to_add = Node(val)
-        current_node = self.dfs(self.head, added_to)
-        current_node.links.append(node_to_add) # current_node has no links? Figure this out
+    
+    def extend(self, root, val):
+        find = self.dfs(root, val)
+        return find
 
 
 def take_input():
@@ -53,35 +48,12 @@ def take_input():
 
 # TESTING
 
-tree = Tree('Do you want to watch a serious or funny movie? Enter 1 or 2')
+tree = Tree('Do you want to watch a serious or funny movie?')
 
-tree.add_node('Do you want to watch a serious or funny movie? Enter 1 or 2', 'Do you want to watch a true story? Enter 1 (Yes) or 2 (No)')
-tree.add_node('Do you want to watch a serious or funny movie? Enter 1 or 2', 'Do you want to watch an action movie or a comedy? Enter 1 or 2')
+print(tree.add_node('Do you want to watch a serious or funny movie?', 'Do you want to watch a true story? Enter Yes or No'))
+print(tree.add_node('Do you want to watch a serious or funny movie?', 'Do you want to watch an action movie or a comedy?'))
 
-tree.add_node('Do you want to watch a true story? Enter 1 (Yes) or 2 (No)', "I recommend Schindler's List")
-tree.add_node('Do you want to watch a true story? Enter 1 (Yes) or 2 (No)', 'I recommend 2001: A Space Odyssey')
-tree.add_node('Do you want to watch an action movie or a comedy? Enter 1 or 2', 'I recommend Rush Hour')
-tree.add_node('Do you want to watch an action movie or a comedy? Enter 1 or 2', 'I recommend Step Brothers')
-
-print('')
-print(
-"""
- __  __            _        _____                                                   _       _   _                 
-|  \/  |          (_)      |  __ \                                                 | |     | | (_)                
-| \  / | _____   ___  ___  | |__) |___  ___ ___  _ __ ___  _ __ ___   ___ _ __   __| | __ _| |_ _  ___  _ __  ___ 
-| |\/| |/ _ \ \ / / |/ _ \ |  _  // _ \/ __/ _ \| '_ ` _ \| '_ ` _ \ / _ \ '_ \ / _` |/ _` | __| |/ _ \| '_ \/ __|
-| |  | | (_) \ V /| |  __/ | | \ \  __/ (_| (_) | | | | | | | | | | |  __/ | | | (_| | (_| | |_| | (_) | | | \__ \ 
-|_|  |_|\___/ \_/ |_|\___| |_|  \_\___|\___\___/|_| |_| |_|_| |_| |_|\___|_| |_|\__,_|\__,_|\__|_|\___/|_| |_|___/
-                                                                                                                   
-                                                                                                                
-"""
-)
-
-
-current = tree.head
-while len(current.links) > 0:
-    print(current.get_val())
-    dec = take_input()
-    print(int(dec))
-    current = current.links[int(dec)-1]
-print(current.get_val())
+print(tree.add_node('Do you want to watch a true story? Enter Yes or No', "I recommend Schindler's List"))
+print(tree.add_node('Do you want to watch a true story? Enter Yes or No', 'I recommend 2001: A Space Odyssey'))
+print(tree.add_node('Do you want to watch an action movie or a comedy?', 'I recommend Rush Hour'))
+print(tree.add_node('Do you want to watch an action movie or a comedy?', 'I recommend Step Brothers'))
